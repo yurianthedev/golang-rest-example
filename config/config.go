@@ -32,7 +32,7 @@ type configuration struct {
 var App app
 var Database database
 
-func InitConfiguation() {
+func InitConfiguration() {
 	var configName string
 	flag.StringVar(&configName, "config", "production", "This flag defines which file should to be taken")
 	flag.Parse()

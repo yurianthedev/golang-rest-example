@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	config.InitConfiguation()
+	config.InitConfiguration()
 	app.StartApp()
 }
