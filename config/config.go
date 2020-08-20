@@ -34,6 +34,8 @@ var Database database
 
 func InitConfiguration() {
 	var configName string
+	// Look for a flag called config to set the proper config file.
+	// Uses a default value of `production`.
 	flag.StringVar(&configName, "config", "production", "This flag defines which file should to be taken")
 	flag.Parse()
 
@@ -43,6 +45,9 @@ func InitConfiguration() {
 		configFileName = "production.config.yaml"
 	case "dev":
 		configFileName = "dev.config.yaml"
+	default:
+		// Stop the app if the flag was set incorrectly.
+		log.Fatalf("Not valid environment flag, use `dev` or `production` instead.\n")
 	}
 
 	wd, err := os.Getwd()
@@ -55,6 +60,7 @@ func InitConfiguration() {
 		log.Fatalf("The config file %s has not been possible to open: \n%v\n", configFileName, err)
 	}
 
+	// Parse the content inside an configuration struct.
 	var configuration configuration
 	d := yaml.NewDecoder(configFile)
 	err = d.Decode(&configuration)
@@ -62,6 +68,7 @@ func InitConfiguration() {
 		log.Fatalf("Error while decoding config file into structure, be sure the structure of the file is ok: \n%v\n", err)
 	}
 
+	// Set two exportable objects based on the config gotten before.
 	App = configuration.App
 	Database = configuration.Database
 

@@ -17,12 +17,14 @@ import (
 
 var router *gin.Engine
 
+// Call functions necessary for the basic setup of the REST.
 func StartApp() {
 	router = gin.Default()
 	mapRoutes()
 	startServer()
 }
 
+// Creates and listens an http server.
 func startServer() {
 	server := &http.Server{
 		Addr:    fmt.Sprintf("%s:%d", config.App.Host, config.App.Port),
@@ -30,12 +32,14 @@ func startServer() {
 	}
 
 	go func() {
+		// Listen server with the specified settings.
 		log.Printf("Listenig server %s\n", server.Addr)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Error listening on %s: %v\n", server.Addr, err)
 		}
 	}()
 
+	// Gracefully stop.
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
