@@ -16,6 +16,7 @@ type app struct {
 
 type database struct {
 	Dialect  string `default:"postgres" yaml:"dialect"`
+	Database string `yaml:"database"`
 	Debug    bool   `default:"false" yaml:"debug"`
 	Username string `required:"true" yaml:"username"`
 	Password string `required:"true" yaml:"password"`

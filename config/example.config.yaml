@@ -4,9 +4,10 @@ app:
 
 database:
   dialect: "postgres"
+  database: "puntored"
   debug: true
   username: "postgres"
   password: "password"
   host: "localhost"
-  port: 8080
+  port: 5432
   sslmode: false
