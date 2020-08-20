@@ -1,0 +1,12 @@
+app:
+  host: "localhost"
+  port: 8080
+
+database:
+  dialect: "postgres"
+  debug: true
+  username: "postgres"
+  password: "password"
+  host: "localhost"
+  port: 8080
+  sslmode: false
