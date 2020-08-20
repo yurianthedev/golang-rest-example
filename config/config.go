@@ -10,13 +10,14 @@ import (
 )
 
 type app struct {
-	Host string `required:"true" yaml:"host"`
-	Port int    `required:"true" yaml:"port"`
+	Host  string `required:"true" yaml:"host"`
+	Port  int    `required:"true" yaml:"port"`
+	Debug bool   `required:"true" yaml:"debug"`
 }
 
 type database struct {
 	Dialect  string `default:"postgres" yaml:"dialect"`
-	Database string `yaml:"database"`
+	Database string `required:"true" yaml:"database"`
 	Debug    bool   `default:"false" yaml:"debug"`
 	Username string `required:"true" yaml:"username"`
 	Password string `required:"true" yaml:"password"`

@@ -10,8 +10,6 @@ import (
 	"github.com/yurianxdev/rest-example/config"
 )
 
-var PostgresDB *sql.DB
-
 func initPostgres() {
 	psqlStringConn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
 		config.Database.Host, config.Database.Port, config.Database.Username, config.Database.Password, config.Database.Database, getSSLMode(),
@@ -19,12 +17,12 @@ func initPostgres() {
 
 	var err error
 	log.Printf("Connecting to database...\n%s\n", psqlStringConn)
-	PostgresDB, err = sql.Open(config.Database.Dialect, psqlStringConn)
+	DB, err = sql.Open(config.Database.Dialect, psqlStringConn)
 	if err != nil {
 		log.Fatalf("Connection to %s database [%s] failed:\n%v,\n", config.Database.Dialect, config.Database.Database, err)
 	}
 
-	err = PostgresDB.Ping()
+	err = DB.Ping()
 	if err != nil {
 		log.Fatalf("Error pinging to %s database [%s]:\n%v\n", config.Database.Dialect, config.Database.Database, err)
 	}

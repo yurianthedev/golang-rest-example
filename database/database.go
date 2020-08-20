@@ -1,10 +1,13 @@
 package database
 
 import (
+	"database/sql"
 	"log"
 
 	"github.com/yurianxdev/rest-example/config"
 )
+
+var DB *sql.DB
 
 func InitDatabase() {
 	switch config.Database.Dialect {

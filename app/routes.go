@@ -1,28 +1,22 @@
 package app
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+
+	"github.com/yurianxdev/rest-example/api/routing"
 )
 
 func mapRoutes() {
+	// Ping route, health control.
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
 	})
 
-	api := router.Group("/api")
-	{
-		api.GET("/users", func(c *gin.Context) {
-			c.JSON(http.StatusOK, struct {
-				Message string
-				error   string
-			}{
-				Message: "some",
-				error:   "some error",
-			})
-		})
-	}
+	// API Version 1 group (al routes should start with /v1/*.
+	v1 := router.Group("/v1")
+
+	// Map entities routing.
+	routing.UserRouting(v1)
 }
