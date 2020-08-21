@@ -1,16 +1,18 @@
 package postgres
 
 import (
+	"database/sql"
 	"log"
 
 	"github.com/yurianxdev/rest-example/api/model"
-	"github.com/yurianxdev/rest-example/database"
 )
 
-type UserRepository struct{}
+type Repo struct {
+	DB *sql.DB
+}
 
-func (ur *UserRepository) ListUsers() ([]model.User, error) {
-	rows, err := database.DB.Query("SELECT * FROM users")
+func (ur *Repo) ListUsers() ([]model.User, error) {
+	rows, err := ur.DB.Query("SELECT * FROM users")
 	if err != nil {
 		return nil, err
 	}
@@ -32,8 +34,8 @@ func (ur *UserRepository) ListUsers() ([]model.User, error) {
 	return users, nil
 }
 
-func (ur *UserRepository) CreateUser(user model.User) (model.User, error) {
-	result, err := database.DB.Exec("INSERT INTO users (name, email, phone, address) VALUES ($1, $2, $3, $4)", user.Name, user.Email, user.Phone, user.Address)
+func (ur *Repo) CreateUser(user model.User) (model.User, error) {
+	result, err := ur.DB.Exec("INSERT INTO users (name, email, phone, address) VALUES ($1, $2, $3, $4)", user.Name, user.Email, user.Phone, user.Address)
 	if err != nil {
 		return model.User{}, err
 	}

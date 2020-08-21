@@ -12,7 +12,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/yurianxdev/rest-example/api/controller"
+	"github.com/yurianxdev/rest-example/api/repository/postgres"
 	"github.com/yurianxdev/rest-example/config"
+	"github.com/yurianxdev/rest-example/database"
 )
 
 var router *gin.Engine
@@ -20,6 +23,9 @@ var router *gin.Engine
 // Call functions necessary for the basic setup of the REST.
 func StartApp() {
 	router = gin.Default()
+	controller.InitRepository(&postgres.Repo{
+		DB: database.DB,
+	})
 	mapRoutes()
 	startServer()
 }

@@ -7,13 +7,17 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/yurianxdev/rest-example/api/model"
-	"github.com/yurianxdev/rest-example/api/repository/postgres"
+	"github.com/yurianxdev/rest-example/api/repository"
 )
 
-var repository = postgres.UserRepository{}
+var repo repository.UserRepository
+
+func InitRepository(r repository.UserRepository) {
+	repo = r
+}
 
 func GETUsers(c *gin.Context) {
-	users, err := repository.ListUsers()
+	users, err := repo.ListUsers()
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 		return
@@ -30,7 +34,7 @@ func POSTUser(c *gin.Context) {
 		return
 	}
 
-	user, err = repository.CreateUser(user)
+	user, err = repo.CreateUser(user)
 	if err != nil {
 		log.Printf("Error creating user on database:\n%v\n", err)
 		c.AbortWithStatus(http.StatusBadRequest)
