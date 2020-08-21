@@ -1,3 +1,5 @@
+![tests](https://github.com/yurianxdev/golang-rest-example/workflows/Unit%20Testing/badge.svg)
+
 # Golang REST API Example
 
 This is a complete example of a production-ready REST API built with **Golang**, **Gin**, **Zap** and another technologies such as **JWT**
