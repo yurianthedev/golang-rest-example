@@ -6,3 +6,6 @@ production:
 
 production-run:
 	./dist/app -config production
+
+testing:
+	go test -v ./test/...
